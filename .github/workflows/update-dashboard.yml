@@ -1,0 +1,38 @@
+name: Update Impact Dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "example-output/**.md"   # demo repo — real projects: docs/decisions/**.md
+      - "docs/decisions/**.md"
+  workflow_dispatch:             # allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  generate-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate DASHBOARD.md
+        run: python scripts/generate_dashboard.py
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add DASHBOARD.md
+          # Only commit if something changed
+          git diff --staged --quiet || git commit -m "chore: regenerate impact dashboard [skip ci]"
+          git push

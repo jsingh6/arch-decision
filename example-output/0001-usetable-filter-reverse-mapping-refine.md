@@ -6,6 +6,17 @@ date: 2026-05-30
 deciders: Jaspreet Singh
 issue: "https://github.com/refinedev/refine/issues/7338"
 validation_pr: "https://github.com/refinedev/refine/pull/7385"
+validated: true
+repo: refinedev/refine
+language: TypeScript
+framework: React
+time_taken_seconds: 312
+tokens_input: 81000
+tokens_output: 11500
+files_explored: 12
+approach_recommended: B
+approach_chosen: B
+estimated_human_hours: 3
 ---
 
 ## Context

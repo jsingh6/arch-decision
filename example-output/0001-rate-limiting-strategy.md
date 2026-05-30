@@ -5,6 +5,17 @@ status: accepted
 date: 2026-05-29
 deciders: Jaspreet Singh
 issue: "https://github.com/tiangolo/fastapi/issues/1234"
+validated: false
+repo: tiangolo/fastapi
+language: Python
+framework: FastAPI
+time_taken_seconds: 287
+tokens_input: 74000
+tokens_output: 9800
+files_explored: 9
+approach_recommended: C
+approach_chosen: C
+estimated_human_hours: 3
 ---
 
 ## Context

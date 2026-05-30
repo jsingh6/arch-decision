@@ -254,6 +254,13 @@ Create `docs/decisions/` if it doesn't exist.
 
 Determine ADR number (zero-padded, next available from existing files).
 
+Before writing, compute run metrics:
+- `time_taken_seconds` — seconds elapsed from Phase 0 start to now
+- `tokens_input` / `tokens_output` — from Claude API usage if available, otherwise omit
+- `files_explored` — count of files read during Phase 2
+- `approach_recommended` / `approach_chosen` — from Phase 5 and Phase 6
+- `estimated_human_hours` — default 3 (a typical architecture decision takes 2–4h)
+
 Write `docs/decisions/NNNN-[kebab-case-slug].md`:
 
 ```markdown
@@ -264,6 +271,17 @@ status: accepted
 date: [YYYY-MM-DD]
 deciders: [git config user.name]
 issue: [ISSUE_REF or "none"]
+validated: false
+repo: [git remote get-url origin | sed 's/.*github.com[:/]//' | sed 's/.git//']
+language: [LANGUAGE from context bus]
+framework: [FRAMEWORK from context bus]
+time_taken_seconds: [elapsed seconds]
+tokens_input: [input tokens or 0]
+tokens_output: [output tokens or 0]
+files_explored: [count from Phase 2]
+approach_recommended: [A / B / C]
+approach_chosen: [A / B / C]
+estimated_human_hours: 3
 ---
 
 ## Context
