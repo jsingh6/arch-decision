@@ -109,6 +109,9 @@ claude plugin install ./arch-decision
 # From a free-text description
 /arch-decision add rate limiting to the public API
 
+# Paste a Jira ticket title + description directly
+/arch-decision We need reverse filter mapping in useTable so URL params sync back to filter state on page load. Acceptance criteria: filters persist on refresh, works with syncWithLocation.
+
 # Structure a vague problem first, then decide
 /arch-intake our checkout flow is too slow
 ```
