@@ -1,3 +1,4 @@
+<img width="1408" height="768" alt="arch" src="https://github.com/user-attachments/assets/ba05b616-1cd0-479e-a63b-74323ae9fc81" />
 <div align="center">
 
 # 📐 arch-decision
