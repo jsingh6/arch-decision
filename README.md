@@ -86,49 +86,38 @@ The human approval gate in Phase 6 means the agent cannot write the ADR without 
 
 ---
 
-## Install
+## Get Started
+
+**Requires [Claude Code](https://claude.ai/code).** Install it first if you haven't already.
+
+Then install the plugin:
 
 ```bash
 claude plugin install arch-decision
 ```
 
-Or clone and install locally:
+Open Claude Code inside any repo and run:
 
 ```bash
-git clone https://github.com/jsingh6/arch-decision
-claude plugin install ./arch-decision
+/arch-decision <GitHub issue URL, Jira description, or plain text>
 ```
 
----
-
-## Usage
+That's it. Examples of what you can pass:
 
 ```bash
-# From a GitHub issue URL
+# GitHub issue
 /arch-decision https://github.com/owner/repo/issues/42
 
-# From a free-text description
+# Paste your Jira ticket summary or description directly
+/arch-decision We need reverse filter mapping in useTable so URL params sync back to filter state on page load
+
+# Or just describe the problem in plain English
 /arch-decision add rate limiting to the public API
-
-# Paste a Jira ticket title + description directly
-/arch-decision We need reverse filter mapping in useTable so URL params sync back to filter state on page load. Acceptance criteria: filters persist on refresh, works with syncWithLocation.
-
-# Structure a vague problem first, then decide
-/arch-intake our checkout flow is too slow
 ```
 
-Optional — add `.claude/arch-decision-config.json` to your repo:
+The tool asks you clarifying questions, shows you 3 approaches with a trade-off table, and waits for your approval before writing anything. The ADR is saved to `docs/decisions/` in your repo.
 
-```json
-{
-  "team": "my-team",
-  "decisions_dir": "docs/decisions",
-  "notification": {
-    "slack_webhook_url": "https://hooks.slack.com/...",
-    "channel": "#architecture"
-  }
-}
-```
+> If the problem is still vague and you want to frame it first, use `/arch-intake your problem here` before running `/arch-decision`.
 
 ---
 
