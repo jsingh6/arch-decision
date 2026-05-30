@@ -12,7 +12,8 @@ from pathlib import Path
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-DECISIONS_DIR = Path("example-output")   # demo repo; real projects use docs/decisions
+DECISIONS_DIR  = Path("example-output")   # demo repo; real projects use docs/decisions
+COMMUNITY_DIR  = Path("community")
 OUTPUT_FILE   = Path("DASHBOARD.md")
 HOURLY_RATE   = 150                      # $/hr — used for $ value estimate
 # Claude Sonnet 4.6 pricing (per million tokens)
@@ -74,47 +75,57 @@ def badge(label: str, value: str, color: str) -> str:
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    adr_files = sorted(DECISIONS_DIR.glob("*.md"))
-    if not adr_files:
-        print("No ADR files found. Nothing to generate.")
-        sys.exit(0)
+    # Load example ADRs
+    example_files = sorted(f for f in DECISIONS_DIR.glob("*.md"))
+    # Load community ADRs — skip README and TEMPLATE
+    community_files = sorted(
+        f for f in COMMUNITY_DIR.glob("*.md")
+        if f.name not in ("README.md", "TEMPLATE.md")
+    ) if COMMUNITY_DIR.exists() else []
 
     adrs = []
-    for f in adr_files:
+    for f in example_files:
         fm = parse_frontmatter(f)
         if fm.get("status") in ("accepted", "draft"):
             fm["_file"] = f
+            fm["_source"] = "example"
             adrs.append(fm)
 
-    if not adrs:
+    community_adrs = []
+    for f in community_files:
+        fm = parse_frontmatter(f)
+        if fm.get("status") in ("accepted", "draft"):
+            fm["_file"] = f
+            fm["_source"] = "community"
+            community_adrs.append(fm)
+
+    all_adrs = adrs + community_adrs
+
+    if not all_adrs:
         print("No accepted/draft ADRs found.")
         sys.exit(0)
 
     # ── Aggregate ─────────────────────────────────────────────────────────────
 
-    total_decisions     = len(adrs)
-    total_tool_seconds  = sum(a.get("time_taken_seconds", 0) for a in adrs)
-    total_human_hours   = sum(a.get("estimated_human_hours", 3) for a in adrs)
+    total_decisions     = len(all_adrs)
+    community_count     = len(community_adrs)
+    total_tool_seconds  = sum(a.get("time_taken_seconds", 0) for a in all_adrs)
+    total_human_hours   = sum(a.get("estimated_human_hours", 3) for a in all_adrs)
     saved_hours         = total_human_hours - (total_tool_seconds / 3600)
     saved_dollars       = saved_hours * HOURLY_RATE
 
-    total_tokens_in     = sum(a.get("tokens_input", 0) for a in adrs)
-    total_tokens_out    = sum(a.get("tokens_output", 0) for a in adrs)
-    token_cost          = (total_tokens_in / 1_000_000 * INPUT_TOKEN_COST_PER_M +
-                           total_tokens_out / 1_000_000 * OUTPUT_TOKEN_COST_PER_M)
-
-    validated_count     = sum(1 for a in adrs if a.get("validated") is True)
+    validated_count     = sum(1 for a in all_adrs if a.get("validated") is True)
     validation_rate     = round(validated_count / total_decisions * 100) if total_decisions else 0
 
-    accepted_rec        = sum(1 for a in adrs
+    accepted_rec        = sum(1 for a in all_adrs
                               if a.get("approach_recommended") == a.get("approach_chosen"))
     acceptance_rate     = round(accepted_rec / total_decisions * 100) if total_decisions else 0
 
     avg_seconds         = total_tool_seconds // total_decisions if total_decisions else 0
-    avg_files           = round(sum(a.get("files_explored", 0) for a in adrs) / total_decisions, 1)
+    avg_files           = round(sum(a.get("files_explored", 0) for a in all_adrs) / total_decisions, 1)
 
     approach_counts     = {"A": 0, "B": 0, "C": 0}
-    for a in adrs:
+    for a in all_adrs:
         key = a.get("approach_chosen", "")
         if key in approach_counts:
             approach_counts[key] += 1
@@ -126,16 +137,17 @@ def main():
 
     badges = " ".join([
         badge("decisions", str(total_decisions), "blue"),
+        badge("community", str(community_count), "purple"),
         badge("avg time", fmt_seconds(avg_seconds), "informational"),
         badge("time saved", fmt_hours(saved_hours), save_color),
         badge("validation rate", f"{validation_rate}%", val_color),
-        badge("recommendation acceptance", f"{acceptance_rate}%", "brightgreen"),
+        badge("acceptance rate", f"{acceptance_rate}%", "brightgreen"),
     ])
 
     # ── ADR table rows ────────────────────────────────────────────────────────
 
     rows = []
-    for a in adrs:
+    for a in all_adrs:
         title       = a.get("title", "—")
         repo        = a.get("repo", "—")
         lang        = a.get("language", "—")
@@ -146,13 +158,17 @@ def main():
         t           = fmt_seconds(a.get("time_taken_seconds", 0))
         vpr         = a.get("validation_pr", "")
         validated   = a.get("validated", False)
-        val_cell    = f"[✅ PR]({vpr})" if validated and vpr else ("✅" if validated else "—")
+        val_cell    = f"[PR]({vpr})" if validated and vpr else ("confirmed" if validated else "—")
         issue       = a.get("issue", "")
-        issue_cell  = f"[🔗 Issue]({issue})" if issue and issue != "none" else "—"
+        issue_cell  = f"[Issue]({issue})" if issue and issue != "none" else "—"
+        source      = a.get("_source", "example")
+        folder      = "community" if source == "community" else "example-output"
         file_link   = a.get("_file").name
-        title_link  = f"[{title}](example-output/{file_link})"
+        submitted   = a.get("submitted_by", "")
+        by_cell     = f"[@{submitted}](https://github.com/{submitted})" if submitted else "—"
+        title_link  = f"[{title}]({folder}/{file_link})"
         rows.append(
-            f"| {title_link} | `{repo}` | {lang} | {approach} — {approach_lbl} {match_icon} | {t} | {issue_cell} | {val_cell} |"
+            f"| {title_link} | `{repo}` | {lang} | {approach} — {approach_lbl} | {t} | {issue_cell} | {val_cell} | {by_cell} |"
         )
 
     adr_table = "\n".join(rows)
@@ -171,7 +187,7 @@ def main():
     # ── Languages ─────────────────────────────────────────────────────────────
 
     lang_counts: dict[str, int] = {}
-    for a in adrs:
+    for a in all_adrs:
         l = a.get("language", "Unknown")
         lang_counts[l] = lang_counts.get(l, 0) + 1
 
@@ -353,8 +369,8 @@ Optional — add `.claude/arch-decision-config.json` to your repo for team-speci
 
 ## All Decisions
 
-| Decision | Repo | Language | Approach | Time | Issue | Validated |
-|----------|------|----------|----------|------|-------|-----------|
+| Decision | Repo | Language | Approach | Time | Issue | Validated | Submitted By |
+|----------|------|----------|----------|------|-------|-----------|--------------|
 {adr_table}
 
 _✅ = recommendation accepted · 🔄 = team chose different approach_

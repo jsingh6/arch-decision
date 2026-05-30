@@ -6,6 +6,7 @@ on:
     paths:
       - "example-output/**.md"   # demo repo — real projects: docs/decisions/**.md
       - "docs/decisions/**.md"
+      - "community/**.md"
   workflow_dispatch:             # allow manual trigger
 
 permissions:

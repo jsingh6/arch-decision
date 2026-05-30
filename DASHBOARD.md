@@ -128,9 +128,9 @@ Optional — add `.claude/arch-decision-config.json` to your repo for team-speci
 
 ## Impact Dashboard
 
-![decisions](https://img.shields.io/badge/decisions-2-blue?style=flat-square) ![avg time](https://img.shields.io/badge/avg_time-4m_59s-informational?style=flat-square) ![time saved](https://img.shields.io/badge/time_saved-5.8h-brightgreen?style=flat-square) ![validation rate](https://img.shields.io/badge/validation_rate-50%25-yellow?style=flat-square) ![recommendation acceptance](https://img.shields.io/badge/recommendation_acceptance-100%25-brightgreen?style=flat-square)
+![decisions](https://img.shields.io/badge/decisions-2-blue?style=flat-square) ![community](https://img.shields.io/badge/community-0-purple?style=flat-square) ![avg time](https://img.shields.io/badge/avg_time-4m_59s-informational?style=flat-square) ![time saved](https://img.shields.io/badge/time_saved-5.8h-brightgreen?style=flat-square) ![validation rate](https://img.shields.io/badge/validation_rate-50%25-yellow?style=flat-square) ![acceptance rate](https://img.shields.io/badge/acceptance_rate-100%25-brightgreen?style=flat-square)
 
-> Auto-generated after every ADR merge · Last updated: **2026-05-30 21:47 UTC**
+> Auto-generated after every ADR merge · Last updated: **2026-05-30 22:07 UTC**
 
 ---
 
@@ -165,10 +165,10 @@ Optional — add `.claude/arch-decision-config.json` to your repo for team-speci
 
 ## All Decisions
 
-| Decision | Repo | Language | Approach | Time | Issue | Validated |
-|----------|------|----------|----------|------|-------|-----------|
-| [Rate Limiting Strategy for Public API](example-output/0001-rate-limiting-strategy.md) | `tiangolo/fastapi` | Python | C — Pragmatic ✅ | 4m 47s | [🔗 Issue](https://github.com/tiangolo/fastapi/issues/1234) | — |
-| [useTable Filter Reverse Mapping for syncWithLocation](example-output/0002-usetable-filter-reverse-mapping-refine.md) | `refinedev/refine` | TypeScript | B — Clean ✅ | 5m 12s | [🔗 Issue](https://github.com/refinedev/refine/issues/7338) | [✅ PR](https://github.com/refinedev/refine/pull/7385) |
+| Decision | Repo | Language | Approach | Time | Issue | Validated | Submitted By |
+|----------|------|----------|----------|------|-------|-----------|--------------|
+| [Rate Limiting Strategy for Public API](example-output/0001-rate-limiting-strategy.md) | `tiangolo/fastapi` | Python | C — Pragmatic | 4m 47s | [Issue](https://github.com/tiangolo/fastapi/issues/1234) | — | — |
+| [useTable Filter Reverse Mapping for syncWithLocation](example-output/0002-usetable-filter-reverse-mapping-refine.md) | `refinedev/refine` | TypeScript | B — Clean | 5m 12s | [Issue](https://github.com/refinedev/refine/issues/7338) | [PR](https://github.com/refinedev/refine/pull/7385) | — |
 
 _✅ = recommendation accepted · 🔄 = team chose different approach_
 
