@@ -1,0 +1,13 @@
+{
+  "name": "arch-decision",
+  "version": "0.1.0",
+  "description": "Architecture Decision Record (ADR) orchestrator — explores your codebase, proposes approaches, and writes a formal ADR. Works on any language or framework.",
+  "skills": [
+    "skills/arch-decision/SKILL.md",
+    "skills/arch-intake/SKILL.md"
+  ],
+  "agents": [
+    "agents/arch-explorer/agent.md",
+    "agents/arch-synthesizer/agent.md"
+  ]
+}
