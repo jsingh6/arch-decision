@@ -5,6 +5,7 @@ status: accepted
 date: 2026-05-30
 deciders: Jaspreet Singh
 issue: "https://github.com/refinedev/refine/issues/7338"
+validation_pr: "https://github.com/refinedev/refine/pull/7385"
 ---
 
 ## Context
@@ -163,6 +164,26 @@ use case with a simpler mental model.
   building block for `onParse` implementations; add to public docs
 - `packages/react-table/src/utils/crud-filters-to-column-filters/index.ts` — reference
   implementation of reverse mapping (same pattern, different target format)
+
+## Independent Validation
+
+After this ADR was written, community contributor PR [#7385](https://github.com/refinedev/refine/pull/7385)
+("fix(antd): add onParse for useTable filter-to-form sync") was found in the issue thread.
+It independently implements **Approach B** — the same `onParse` callback, the same scope
+(antd wrapper only, not core), and the same backward-compatible contract.
+
+Key observations:
+
+- **Same callback name:** The PR uses `onParse?: (filters: CrudFilters) => Partial<FieldValues>` —
+  identical to the API designed in Approach B above.
+- **Same placement:** Scoped to `packages/antd`, keeping `packages/core` framework-agnostic —
+  consistent with the constraint identified in Phase 2.
+- **Same trade-off call:** The PR ships `onParse` alone without a `filterValues` auto-baseline,
+  choosing a tighter scope for the patch. This is a valid alternative to the hybrid recommendation
+  above — the `filterValues` baseline can follow in a separate PR.
+
+This ADR was produced from a cold-start codebase exploration with no prior knowledge of the PR.
+The independent convergence on the same API name, scope, and placement confirms the recommendation.
 
 ## Related ADRs
 
