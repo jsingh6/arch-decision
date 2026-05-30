@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add DASHBOARD.md
           # Only commit if something changed
           git diff --staged --quiet || git commit -m "chore: regenerate impact dashboard [skip ci]"
           git push

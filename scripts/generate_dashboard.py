@@ -13,7 +13,7 @@ from pathlib import Path
 # ── Config ────────────────────────────────────────────────────────────────────
 
 DECISIONS_DIR = Path("example-output")   # demo repo; real projects use docs/decisions
-OUTPUT_FILE   = Path("README.md")
+OUTPUT_FILE   = Path("DASHBOARD.md")
 HOURLY_RATE   = 150                      # $/hr — used for $ value estimate
 # Claude Sonnet 4.6 pricing (per million tokens)
 INPUT_TOKEN_COST_PER_M  = 3.00
