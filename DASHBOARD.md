@@ -130,7 +130,7 @@ Optional — add `.claude/arch-decision-config.json` to your repo for team-speci
 
 ![decisions](https://img.shields.io/badge/decisions-2-blue?style=flat-square) ![community](https://img.shields.io/badge/community-0-purple?style=flat-square) ![avg time](https://img.shields.io/badge/avg_time-4m_59s-informational?style=flat-square) ![time saved](https://img.shields.io/badge/time_saved-5.8h-brightgreen?style=flat-square) ![validation rate](https://img.shields.io/badge/validation_rate-50%25-yellow?style=flat-square) ![acceptance rate](https://img.shields.io/badge/acceptance_rate-100%25-brightgreen?style=flat-square)
 
-> Auto-generated after every ADR merge · Last updated: **2026-05-30 22:07 UTC**
+> Auto-generated after every ADR merge · Last updated: **2026-05-30 22:08 UTC**
 
 ---
 
