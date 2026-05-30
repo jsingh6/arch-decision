@@ -2,7 +2,7 @@
 
 ![decisions](https://img.shields.io/badge/decisions-2-blue?style=flat-square) ![avg time](https://img.shields.io/badge/avg_time-4m_59s-informational?style=flat-square) ![time saved](https://img.shields.io/badge/time_saved-5.8h-brightgreen?style=flat-square) ![value delivered](https://img.shields.io/badge/value_delivered-$875-brightgreen?style=flat-square) ![validation rate](https://img.shields.io/badge/validation_rate-50%25-yellow?style=flat-square) ![token cost](https://img.shields.io/badge/token_cost-$0.78-lightgrey?style=flat-square)
 
-> Auto-generated after every ADR merge · Last updated: **2026-05-30 19:25 UTC**
+> Auto-generated after every ADR merge · Last updated: **2026-05-30 21:29 UTC**
 
 ---
 
@@ -40,10 +40,10 @@
 
 ## All Decisions
 
-| ADR | Title | Repo | Language | Approach | Time | Files | Validated |
-|-----|-------|------|----------|----------|------|-------|-----------|
-| [0001](example-output/0001-rate-limiting-strategy.md) | Rate Limiting Strategy for Public API | `tiangolo/fastapi` | Python | C — Pragmatic ✅ | 4m 47s | 9 | — |
-| [0001](example-output/0001-usetable-filter-reverse-mapping-refine.md) | useTable Filter Reverse Mapping for syncWithL… | `refinedev/refine` | TypeScript | B — Clean ✅ | 5m 12s | 12 | [✅ PR](https://github.com/refinedev/refine/pull/7385) |
+| Decision | Repo | Language | Approach | Time | Issue | Validated |
+|----------|------|----------|----------|------|-------|-----------|
+| [Rate Limiting Strategy for Public API](example-output/0001-rate-limiting-strategy.md) | `tiangolo/fastapi` | Python | C — Pragmatic ✅ | 4m 47s | [🔗 Issue](https://github.com/tiangolo/fastapi/issues/1234) | — |
+| [useTable Filter Reverse Mapping for syncWithLocation](example-output/0002-usetable-filter-reverse-mapping-refine.md) | `refinedev/refine` | TypeScript | B — Clean ✅ | 5m 12s | [🔗 Issue](https://github.com/refinedev/refine/issues/7338) | [✅ PR](https://github.com/refinedev/refine/pull/7385) |
 
 _✅ = recommendation accepted · 🔄 = team chose different approach_
 

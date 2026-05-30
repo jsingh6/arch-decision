@@ -137,7 +137,6 @@ def main():
 
     rows = []
     for a in adrs:
-        adr_id      = a.get("id", "—")
         title       = a.get("title", "—")
         repo        = a.get("repo", "—")
         lang        = a.get("language", "—")
@@ -149,11 +148,12 @@ def main():
         vpr         = a.get("validation_pr", "")
         validated   = a.get("validated", False)
         val_cell    = f"[✅ PR]({vpr})" if validated and vpr else ("✅" if validated else "—")
-        f_count     = a.get("files_explored", "—")
+        issue       = a.get("issue", "")
+        issue_cell  = f"[🔗 Issue]({issue})" if issue and issue != "none" else "—"
         file_link   = a.get("_file").name
+        title_link  = f"[{title}](example-output/{file_link})"
         rows.append(
-            f"| [{adr_id}](example-output/{file_link}) | {title[:45]}{'…' if len(title)>45 else ''} "
-            f"| `{repo}` | {lang} | {approach} — {approach_lbl} {match_icon} | {t} | {f_count} | {val_cell} |"
+            f"| {title_link} | `{repo}` | {lang} | {approach} — {approach_lbl} {match_icon} | {t} | {issue_cell} | {val_cell} |"
         )
 
     adr_table = "\n".join(rows)
@@ -229,8 +229,8 @@ def main():
 
 ## All Decisions
 
-| ADR | Title | Repo | Language | Approach | Time | Files | Validated |
-|-----|-------|------|----------|----------|------|-------|-----------|
+| Decision | Repo | Language | Approach | Time | Issue | Validated |
+|----------|------|----------|----------|------|-------|-----------|
 {adr_table}
 
 _✅ = recommendation accepted · 🔄 = team chose different approach_
